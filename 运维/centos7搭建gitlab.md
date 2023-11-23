@@ -1,12 +1,8 @@
 # centos7搭建gitlab
 
-+++
-
 ## 1、gitlab介绍
 
 ​	GitLab一个开源的git仓库管理平台，方便团队协作开发、管理。在GitLab上可以实现完整的CI（持续集成）、CD（持续发布）流程。而且还提供了免费使用的Plan，以及免费的可以独立部署的社区版本(https://gitlab.com/gitlab-org/gitlab-ce )。
-
-+++
 
 ## 2、环境信息
 
@@ -21,8 +17,6 @@
 + #### 软件
 
   > gitlab社区版11.1.4
-
-+++
 
 ## 3、准备工作
 
@@ -49,8 +43,6 @@
 `sudo firewall-cmd --add-service=http --permanent`
 
 `sudo firewall-cmd --reload`
-
-+++
 
 ## 4、部署
 
