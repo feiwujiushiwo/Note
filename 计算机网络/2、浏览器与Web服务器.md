@@ -27,7 +27,7 @@ http、ftp、file等字符表示浏览器使用的**访问方法**。
 
 #### 1.2、解析url
 
-`http` 
+`http:` 
 
 `//` 
 
@@ -35,7 +35,7 @@ http、ftp、file等字符表示浏览器使用的**访问方法**。
 
 `/`
 
-`dir`
+`dir/`
 
 `file.html`
 
