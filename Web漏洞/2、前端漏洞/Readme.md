@@ -33,12 +33,9 @@
 
 ### a、同源策略
 
-同源策略由Netscape提出的一个著名的安全策略。现在所有支持JavaScript 的浏览器都会使用这
-个策略。所谓同源是指：**域名，协议，端口相同**。
-有些URL比较特殊，如： *about:blank和javascript*:，继承自加载它们的页面的源，本身并没有
-源。
-对于不满足同源策略的情况，脚本不能操纵其他页面的元素；可以发送请求，但一般情况下接收
-不到返回的内容。
+同源策略由Netscape提出的一个著名的安全策略。现在所有支持JavaScript 的浏览器都会使用这个策略。所谓同源是指：**域名，协议，端口相同**。
+有些URL比较特殊，如： *about:blank和javascript*:，继承自加载它们的页面的源，本身并没有源。
+对于不满足同源策略的情况，脚本不能操纵其他页面的元素；可以发送请求，但一般情况下接收不到返回的内容。
 
 ### b、Cookie
 
@@ -56,14 +53,24 @@ cookie其实是一个帮你省很多事的东西，如果没有cookie，每次�
 
 获得了他的cookie，我们就可以利用这个cookie登陆他的账号了。
 
-**Cookie 的内容：**
-Name Value Domain Path Expires HttpOnly Secure
+Cookie的内容：
+
+| 字段     | 描述                                          |
+| -------- | --------------------------------------------- |
+| Name     | Cookie 的名称                                 |
+| Value    | Cookie 的值                                   |
+| Domain   | 可以访问该 Cookie 的域名                      |
+| Path     | Cookie 可用于的路径                           |
+| Expires  | Cookie 的过期时间                             |
+| HttpOnly | 表示 Cookie 是否仅通过 HTTP 或 HTTPS 协议传输 |
+| Secure   | 表示 Cookie 是否仅通过 HTTPS 协议传输         |
+
 Cookie的长度通常要小于4k 。
 
 ### c、localStorage
 
-localStorage 是HTML5引入的新特性，主要为了解决Cookie存储长度不足的问题，localStorage
-最大支持5M，相当于前端本地的数据库，不少网站用它来存放js代码。
+localStorage 是HTML5引入的新特性，主要为了解决Cookie存储长度不足的问题，localStorage最大支持5M，相当于前端本地的数据库，不少网站用它来存放js代码。
+
 **localStorage与sessionStorage的区别在于：前者生命周期是永久（需要主动清除），而
 sessionStorage会在用户关闭标签页或窗口时自动清除。**
 
