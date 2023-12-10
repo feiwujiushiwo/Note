@@ -21,12 +21,12 @@
 
 容器是在主机上运行的沙盒进程，与该主机上运行的所有其他进程隔离。这种隔离利用了kernel namespaces and cgroups，这些功能在 Linux 中已经存在很长时间了。 Docker 使这些功能变得易于使用。总而言之，容器：
 
-- 是镜像的可运行实例。您可以使用 Docker API 或 CLI 创建、启动、停止、移动或删除容器。
+- 是镜像的**可运行实例**。我们可以通过docker创建、启动、停止、移动或删除容器。
 - 可以在本地机、虚拟机上运行，也可以部署到云端。
 - 是可移植的（并且可以在任何操作系统上运行）。
 - 与其他容器隔离并运行自己的软件、二进制文件、配置等。
 
-> tips：
+> Tips：
 >
 > ​	可以联想一下VMware，镜像就是虚拟机的iso文件，容器就是我们启动的虚拟机。
 
@@ -35,27 +35,27 @@
 ### 1、对镜像：
 
 ```bash
-docker search <image> #在docker hub中搜索镜像
-
-docker pull <iamge:tag> #从docker hub中拉取镜像
-
-docker images #这个命令可以列出所有你已经下载的镜像，如果想单独查看你下载的某个镜像，可以在后面加镜像名 
-
-docker history <image:tag> #查看某个镜像的构建历史
-
-docker commit #把容器打包成新的镜像
-
-docker tag <old image:tag> <new image:tag> #给镜像打一个新标签
-
-docker push <image:tag> #把镜像推送到仓库
-
-docker rmi <iamge:tag> #删除镜像
-
+#在docker hub中搜索镜像
+docker search <image>
+#从docker hub中拉取镜像
+docker pull <iamge:tag> 
+#这个命令可以列出所有你已经下载的镜像，如果想单独查看你下载的某个镜像，可以在后面加镜像名
+docker images  
+#查看某个镜像的构建历史
+docker history <image:tag>
+#给镜像打一个新标签
+docker tag <old image:tag> <new image:tag> 
+#把镜像推送到仓库
+docker push <image:tag>
+#删除镜像
+docker rmi <iamge:tag> 
 ```
 
 ### 2、对容器：
 
 ```bash
+#列出容器
+docker ps
 #创建容器
 docker creat 
 #根据镜像启动容器
@@ -76,24 +76,44 @@ docker restart
 docker attach
 #进入容器，加上“-it”之后可以创造一个伪终端
 docker exec -it
-
-docker logs
 #删除容器（提示：只有stoped状态的容器才能被删除）
 docker rm
+#主机和容器之间复制文件
+docker cp
+#把修改后的容器导出为镜像
+docker commit
 ```
 
-### 3、共用：
+### 3、其他：
 
 ```bash
 #查看详细信息
 docker inspect
+#查看日志
+docker logs
+#登录镜像仓库，可用-u指定用户 –p指定密码
+docker login
+#上传镜像到仓库
+docker push
 ```
 
-### 4、Dockerfile：
+**注意：** 有时需要在命令后面加些选项，用到的时候可以自己去查，例如：
 
-```
+ `docker ps` 常用选项：
 
-```
+- `-a` 或 `--all`：显示所有容器，包括运行中的和已停止的。
+- `-q` 或 `--quiet`：仅显示容器 ID，适合用于其他命令的输入。
+- `-s` 或 `--size`：显示每个容器的磁盘使用情况。
+- `-f` 或 `--filter`：根据指定的条件过滤显示容器。
+
+`docker run` 常用选项：
+
+- `-d` 或 `--detach`：以后台模式运行容器。
+- `-p` 或 `--publish`：指定端口映射，将主机端口映射到容器内部端口。
+- `-v` 或 `--volume`：挂载主机文件系统上的目录或文件到容器内部。
+- `--name`：为容器指定名称。
+- `-e` 或 `--env`：设置环境变量。
+- `-it`：以交互模式运行容器，并分配一个伪终端。
 
 ## 第三部分：容器化应用程序
 
@@ -360,9 +380,9 @@ docker run -dp 3000:3000 getting-started
 
 ## 第五部分：分享应用程序
 
-现在我们已经构建了图像，可以选择去分享它。要分享 Docker 镜像，必须使用 Docker registry。默认registry是 Docker Hub，~~我们使用的所有镜像都来自于此。~~，我们应该都是换过镜像库的了，前面那个安装docker的文档给出了换镜像库的方法。
+现在我们已经构建了图像，可以选择去分享它。要分享 Docker 镜像，必须使用 Docker registry。默认registry是 Docker Hub，~~我们使用的所有镜像都来自于此~~。
 
-> Docker ID 可以让我们访问 Docker Hub，这是世界上最大的容器镜像库和社区。（好像需要科学上网）
+> Docker ID 可以让我们访问 Docker Hub，这是世界上最大的容器镜像库和社区。（好像需要翻墙）
 
 ### 1、创建储存库
 
