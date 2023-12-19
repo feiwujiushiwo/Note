@@ -130,7 +130,7 @@ docker volume create todo-db
 3. 启动 todo 应用容器，但添加  `--mount` 选项来指定卷装载。为卷命名，然后挂载 它到  `/etc/todos` 在容器中，捕获在路径中创建的所有文件。
 
 ```bash
-docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
+docker run -dp 3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
 ```
 
 #### 3.2、验证数据持久化
@@ -426,7 +426,7 @@ todo 应用程序支持设置一些环境变量来指定 MySQL 连接设置。
 1. 指定前面的每个环境变量，并将容器连接到应用程序网络。运行此命令时，确保位于 `getting-started-app` 目录中。
 
    ```bash
-   docker run -dp 127.0.0.1:3000:3000 -w /app -v "$(pwd):/app" --network todo-app -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=secret -e MYSQL_DB=todos node:18-alpine sh -c "yarn install && yarn run dev"
+   docker run -dp 3000:3000 -w /app -v "$(pwd):/app" --network todo-app -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=secret -e MYSQL_DB=todos node:18-alpine sh -c "yarn install && yarn run dev"
    ```
 
 2. 如果查看容器 ( `docker logs -f <container-id>` ) 的日志，应该会看到类似于以下内容的消息，这表明它正在使用 mysql 数据库。
@@ -593,7 +593,7 @@ Docker Compose 是一个帮助定义和共享多容器应用程序的工具。�
        image: node:18-alpine
        command: sh -c "yarn install && yarn run dev"
        ports:
-         - 127.0.0.1:3000:3000
+         - 3000:3000
        working_dir: /app
        volumes:
          - ./:/app
@@ -622,7 +622,7 @@ Docker Compose 是一个帮助定义和共享多容器应用程序的工具。�
 2. 使用 `docker compose up` 命令启动应用程序堆栈。添加 `-d` 标志以在后台运行所有内容。
 
    ```bash
-   docker compose up -d
+   docker-compose up -d
    ```
 
    应该看到的输出：

@@ -353,7 +353,7 @@ docker stop <id>
 最后我们用docker rm命令删除这个容器
 
 ```bash
-docker rm <id>
+docker rm -f <id>
 ```
 
 ### 3、启动更新后的容器

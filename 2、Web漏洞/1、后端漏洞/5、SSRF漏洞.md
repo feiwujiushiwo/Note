@@ -2,11 +2,63 @@
 
 ## 1、概述
 
-SSRF（Server-Side Request Forgery，服务端请求伪造）漏洞是一种安全漏洞，允许攻击者在服务器端执行远程请求。这种漏洞可能允许攻击者发起网络请求并从服务器端执行，甚至可以利用服务器内部网络资源或访问对外不可见的系统。
+SSRF（Server-site request forgery）服务端请求伪造。
+
+> 网站未合理的对用户传入的URL进行过滤和判别时就有可能会存在SSRF漏洞
+
+- 目标：内网
+
+- 分类：Web通用漏洞
+
+- 风险等级及危害：高危~严重
+
+  > 利用SSRF攻击内网服务器（获取Webshell），或者利用SSRF漏洞获取大量敏感数据。
+
+> Tips：
+>
+> 为了运维方便，内网通常比外网脆弱，所以SSRF漏洞的危害比较大。
 
 ## 2、漏洞原理
 
-通常由于服务器端应用程序对远程请求处理不当或对输入数据的信任导致。攻击者利用此漏洞将请求发送到内部或外部网络资源，可能获取敏感信息、绕过防火墙、执行未授权操作等。
+```php
+<?php
+$url = $_GET['url']; // 从用户获取URL参数
+
+function get_page_title($url) {
+    $content = file_get_contents($url); // 获取URL的内容
+    preg_match('/<title>(.*?)<\/title>/ims', $content, $matches); // 提取页面标题
+    return isset($matches[1]) ? $matches[1] : 'No title found';
+}
+
+$title = get_page_title($url); // 获取页面标题
+echo "页面标题是： " . $title;
+?>
+
+```
+
+
+
+```php
+<?php
+$url = $_GET['url']; // 从用户获取URL参数
+
+function get_page_title($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    preg_match('/<title>(.*?)<\/title>/ims', $response, $matches); // 提取页面标题
+    return isset($matches[1]) ? $matches[1] : 'No title found';
+}
+
+$title = get_page_title($url); // 获取页面标题
+echo "页面标题是： " . $title;
+?>
+```
+
+
 
 ## 3、漏洞利用
 
